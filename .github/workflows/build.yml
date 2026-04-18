@@ -1,0 +1,24 @@
+name: Build Apple Unity Plugins
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: |
+          brew install node
+          pip3 install --break-system-packages requests
+
+      - name: Build plugins
+        run: python3 build.py
+
+      - name: Upload build output
+        uses: actions/upload-artifact@v3
+        with:
+          name: built-plugins
+          path: Build/
