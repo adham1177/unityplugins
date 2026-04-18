@@ -15,13 +15,7 @@ jobs:
           pip3 install --break-system-packages requests
 
       - name: Build plugins
-        run: |
-          python3 build.py --help || true
-          echo "=== Trying full build ==="
-          python3 build.py -b Release 2>&1 || true
-          echo "=== Trying with all platforms ==="
-          python3 build.py -m iOS macOS -p All 2>&1 || true
-        continue-on-error: true
+        run: python3 build.py -b build pack -bc Release -m iOS macOS -p all 2>&1
 
       - name: Check what was built
         run: |
