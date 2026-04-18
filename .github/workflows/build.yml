@@ -9,8 +9,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: List available Xcode versions
-        run: ls /Applications | grep Xcode
+      - name: Select Xcode 26
+        run: sudo xcode-select -s /Applications/Xcode_26.3.app/Contents/Developer
 
       - name: Install dependencies
         run: |
@@ -21,7 +21,7 @@ jobs:
           sed -i '' 's/user_response = input()/user_response = "Y"/g' scripts/python/upi_utility.py
 
       - name: Build all plugins
-        run: python3 build.py -f -b build pack -bc Release -m iOS macOS -p all -nc 2>&1 | tail -200
+        run: python3 build.py -f -b build pack -bc Release -m iOS macOS -p all -nc 2>&1
 
       - name: Check what was built
         run: |
