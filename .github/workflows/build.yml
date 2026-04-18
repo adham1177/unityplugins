@@ -18,8 +18,8 @@ jobs:
         run: |
           sed -i '' 's/user_response = input()/user_response = "Y"/g' scripts/python/upi_utility.py
 
-      - name: Build plugins
-        run: python3 build.py -f -b build pack -bc Release -m iOS macOS -p all -nc 2>&1
+      - name: Build GameKit only
+        run: python3 build.py -f -b build pack -bc Release -m iOS macOS -p Core GameKit -nc 2>&1
 
       - name: Check what was built
         run: |
@@ -29,5 +29,5 @@ jobs:
       - name: Upload build output
         uses: actions/upload-artifact@v4
         with:
-          name: built-plugins
+          name: built-gamekit
           path: Build/
