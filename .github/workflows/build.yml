@@ -7,7 +7,7 @@ jobs:
   build:
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Install dependencies
         run: |
@@ -16,6 +16,15 @@ jobs:
 
       - name: Build plugins
         run: python3 build.py
+
+      - name: Check what was built
+        run: |
+          echo "=== Root directory ==="
+          ls -la
+          echo "=== Build folder (if exists) ==="
+          ls -la Build/ || echo "Build folder does not exist"
+          echo "=== Looking for .tgz files ==="
+          find . -name "*.tgz" 2>/dev/null || echo "No .tgz files found"
 
       - name: Upload build output
         uses: actions/upload-artifact@v4
