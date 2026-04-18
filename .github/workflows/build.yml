@@ -15,7 +15,8 @@ jobs:
           pip3 install --break-system-packages requests
 
       - name: Build plugins
-        run: python3 build.py
+        run: python3 build.py 2>&1
+        continue-on-error: true
 
       - name: Check what was built
         run: |
@@ -25,6 +26,10 @@ jobs:
           ls -la Build/ || echo "Build folder does not exist"
           echo "=== Looking for .tgz files ==="
           find . -name "*.tgz" 2>/dev/null || echo "No .tgz files found"
+          echo "=== Python version ==="
+          python3 --version
+          echo "=== build.py exists? ==="
+          ls build.py || echo "build.py not found"
 
       - name: Upload build output
         uses: actions/upload-artifact@v4
