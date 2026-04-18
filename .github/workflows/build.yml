@@ -15,7 +15,7 @@ jobs:
           pip3 install --break-system-packages requests
 
       - name: Build plugins
-        run: echo "Y" | python3 build.py -b build pack -bc Release -m iOS macOS -p all 2>&1
+        run: yes | python3 build.py -f -b build pack -bc Release -m iOS macOS -p all -nc 2>&1
 
       - name: Check what was built
         run: |
